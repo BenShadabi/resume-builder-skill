@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume Builder skill: how it works</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1d1d1b;--mute:#5f5e5a;--card:#fff;--line:#dcdad2;--acc:#1d6b5a;--accbg:#e1f5ee;--warn:#8a4b0b;--warnbg:#faeeda}
+@media (prefers-color-scheme:dark){:root{--bg:#161615;--fg:#f1efe8;--mute:#b4b2a9;--card:#1f1f1d;--line:#3a3a37;--acc:#5dcaa5;--accbg:#0c3a30;--warn:#fac775;--warnbg:#3a2a10}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,Segoe UI,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:30px;margin:0 0 8px}h2{font-size:20px;margin:40px 0 12px}
+p.lead{color:var(--mute);margin:0 0 24px;font-size:18px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;transition:border-color .2s,background .2s}
+.step b{display:block;font-size:13px;color:var(--mute);font-weight:500}
+.step span{font-weight:500}
+.step.on{border-color:var(--acc);background:var(--accbg)}
+.detail{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;min-height:130px}
+.detail h3{margin:0 0 6px;font-size:18px}
+.detail p{margin:4px 0;color:var(--mute)}
+.bar{height:4px;background:var(--line);border-radius:2px;margin-top:14px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 8px;font-size:16px}
+.card ul{margin:0;padding-left:18px;color:var(--mute)}
+.warn{background:var(--warnbg);border-color:transparent}.warn h3{color:var(--warn)}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:14px}
+code{font-family:ui-monospace,Menlo,Consolas,monospace}
+@media (max-width:640px){.steps{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<h1>Resume Builder skill</h1>
+<p class="lead">From nothing to a resume, cover letter and interview prep that are honest, one page and matched to the job. You decide. Claude advises.</p>
+
+<h2>The 8 phases (click one, or watch it play)</h2>
+<div class="steps" id="steps"></div>
+<div class="detail" id="detail"></div>
+<div class="bar"><i id="bar"></i></div>
+
+<h2>Who decides what</h2>
+<div class="two">
+<div class="card"><h3>You decide</h3><ul>
+<li>Which documents you want</li><li>Roles, industries, locations</li><li>Length, order, tone, design</li><li>What to include or leave off</li><li>Whether to apply</li></ul></div>
+<div class="card warn"><h3>Claude will not do</h3><ul>
+<li>Invent or inflate a number, title or skill</li><li>Stuff keywords or hide AI use</li><li>Submit or sign in for you</li><li>Share your data</li></ul>
+<p style="margin:8px 0 0;color:var(--mute)">If a request goes against the process, Claude says why once, offers a better option, then follows your choice (except for the list above).</p></div>
+</div>
+
+<h2>What you need</h2>
+<div class="card"><ul>
+<li>20 to 40 minutes, and honest numbers from your work if you have them</li>
+<li>Your old resume or LinkedIn, and 1 to 3 job postings (optional)</li>
+<li>Python 3 and Chrome, Chromium or Edge. Nothing else to install.</li></ul></div>
+
+<h2>Quick start</h2>
+<pre><code>mkdir -p ~/.claude/skills
+cp -r resume-builder ~/.claude/skills/
+# then, in Claude:
+Use the resume-builder skill. Start with the setup check.</code></pre>
+</main>
+<script>
+const P=[
+["Set up","Checks your computer, then explains the plan in plain words: how long it takes, what you decide, the one rule (only your facts)."],
+["Interview","About 48 questions in 8 short rounds: basics, goals, education, experience with numbers, projects, skills, AI use, style. Say skip any time."],
+["Read back","A summary of your fact sheet so you can fix anything wrong before anything is written."],
+["Pick targets","Turn goals into 1 to 3 job lanes, score fit honestly, check each posting is still open."],
+["Master resume","A one-page, plain-text, ATS-friendly resume from your facts. You edit it as text first."],
+["Tailor","Per posting: honest keyword match, a 5-part cover letter under 250 words, and an interview prep sheet if you want them."],
+["Check","Scripts verify one page, no buzzwords, every number in your fact sheet, and file names."],
+["Hand over","PDFs, the gaps list and a needs-your-input list. You send the application yourself."]];
+const s=document.getElementById("steps"),d=document.getElementById("detail"),bar=document.getElementById("bar");
+let cur=0,t=null,w=0;
+P.forEach((p,i)=>{const e=document.createElement("div");e.className="step";e.innerHTML="<b>Phase "+i+"</b><span>"+p[0]+"</span>";e.onclick=()=>{pick(i);clearInterval(t)};s.appendChild(e)});
+function pick(i){cur=i;[...s.children].forEach((c,j)=>c.classList.toggle("on",j===i));d.innerHTML="<h3>"+P[i][0]+"</h3><p>"+P[i][1]+"</p>";w=0}
+pick(0);
+t=setInterval(()=>{w+=2;bar.style.width=w+"%";if(w>=100){pick((cur+1)%P.length)}},90);
+</script>
+</body>
+</html>

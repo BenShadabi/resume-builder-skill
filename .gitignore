@@ -1,5 +1,4 @@
 my-resume/
 profile.md
-*.html
 .DS_Store
 __pycache__/
