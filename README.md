@@ -2,6 +2,12 @@
 
 Get a finished, honest, one-page resume (and a cover letter and interview prep sheet if you want them) by answering a few questions. **You choose how much effort to put in.**
 
+![How it works](docs/img/walkthrough.png)
+
+| Sample resume it builds |
+|---|
+| ![Sample resume](docs/img/sample-resume.png) |
+
 ## Pick your path
 
 | Path | Questions | Time | Best if |
@@ -114,6 +120,10 @@ Your fact sheet and resumes stay in the folder you choose on your own computer. 
 - Built for one-page resumes in the North American style. Other formats are described in `special-cases.md` but not templated. The builder cannot place a photo.
 - Fewer questions means less detail: Quick gives a solid but plainer resume. It does not guarantee interviews.
 - Check every claim before you send. You are the one who has to explain it.
+
+## Pair it with the tracker
+
+Use [coop-job-tracker](https://github.com/BenShadabi/coop-job-tracker) to see the newest postings, track what you applied to and follow up. When you pick a posting there, bring its text here and Claude builds the tailored resume and cover letter. See more of my work at [github.com/BenShadabi](https://github.com/BenShadabi).
 
 ## Contributing
 
