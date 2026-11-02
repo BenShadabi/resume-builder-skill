@@ -50,6 +50,26 @@ def find_chrome():
     return None
 
 
+def is_root():
+    return hasattr(os, "geteuid") and os.geteuid() == 0
+
+
+def chrome_works(chrome):
+    """Try printing a tiny page. Returns True only if Chrome really produces a PDF here (it can hang or fail in sandboxes)."""
+    flags = ["--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--disable-dev-shm-usage"]
+    if hasattr(os, "geteuid") and os.geteuid() == 0:
+        flags.append("--no-sandbox")
+    with tempfile.TemporaryDirectory() as d:
+        page, out = Path(d) / "t.html", Path(d) / "t.pdf"
+        page.write_text("<html><body>test</body></html>", encoding="utf-8")
+        try:
+            subprocess.run([chrome, *flags, f"--user-data-dir={d}/p", f"--print-to-pdf={out}", page.as_uri()],
+                           check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=20)
+            return out.exists() and out.stat().st_size > 500
+        except (subprocess.SubprocessError, OSError):
+            return False
+
+
 def inline(text):
     t = html.escape(text)
     return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
@@ -115,6 +135,10 @@ def main():
     src = Path(args.source).resolve()
     dst = (Path(args.output) if args.output else src.with_suffix(".pdf")).resolve()
     chrome = None if args.engine == "builtin" else find_chrome()
+    if chrome and args.engine == "auto" and is_root():
+        chrome = None  # root usually means a sandbox or container, where Chrome is slow or hangs: use the built-in writer
+    if chrome and args.engine == "auto" and not chrome_works(chrome):
+        chrome = None  # found but not working here (common in sandboxes): use the built-in writer
     if not chrome:
         if args.engine == "chrome":
             sys.exit("Chrome, Chromium or Edge was not found. Install one, or use --engine builtin.")
@@ -129,10 +153,31 @@ def main():
     doc = to_html(src.read_text(encoding="utf-8"), args.paper, args.lang)
     html_path = dst.with_suffix(".html")
     html_path.write_text(doc, encoding="utf-8")
+    flags = ["--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--disable-dev-shm-usage"]
+    if hasattr(os, "geteuid") and os.geteuid() == 0:  # root in a container: Chrome refuses to start without this
+        flags.append("--no-sandbox")
+    ok = False
     with tempfile.TemporaryDirectory() as profile:
-        subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-                        f"--user-data-dir={profile}", f"--print-to-pdf={dst}", html_path.as_uri()],
-                       check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=90)
+        try:
+            if dst.exists():
+                dst.unlink()
+            subprocess.run([chrome, *flags, f"--user-data-dir={profile}", f"--print-to-pdf={dst}", html_path.as_uri()],
+                           check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=30)
+            ok = dst.exists() and dst.stat().st_size > 500
+        except (subprocess.SubprocessError, OSError):
+            ok = False
+    html_path.unlink(missing_ok=True)
+    if not ok:
+        if args.engine == "chrome":
+            sys.exit("Chrome could not print the PDF. Use --engine builtin.")
+        from simple_pdf import markdown_to_pdf
+        data, pages = markdown_to_pdf(src.read_text(encoding="utf-8"), args.paper)
+        dst.write_bytes(data)
+        print(f"Chrome did not work here, so I used the built-in PDF writer instead.")
+        print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''})")
+        if pages > args.max_pages:
+            print(f"WARNING: more than {args.max_pages} page(s). Cut the oldest or least relevant bullets, then rebuild.")
+        return
     pages = page_count(dst)
     print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''})")
     if pages > args.max_pages:

@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from build_resume import find_chrome  # noqa: E402
+from build_resume import chrome_works, find_chrome, is_root  # noqa: E402
 
 
 def main():
@@ -22,8 +22,13 @@ def main():
         ok = False
         print("MISSING Python 3.8 or newer. Install from python.org, then run this again.")
     chrome = find_chrome()
-    if chrome:
-        print(f"OK    PDF printer found: {chrome}")
+    if chrome and is_root():
+        print("OK    Running as root (usually a sandbox), so PDFs use the built-in writer: plain Helvetica, one column. That is fine.")
+    elif chrome and chrome_works(chrome):
+        print(f"OK    PDF printer works: {chrome}")
+    elif chrome:
+        print("OK    Chrome is installed but does not work here, so PDFs use the built-in writer "
+              "(plain Helvetica, one column). That is fine.")
     else:
         print("OK    No Chrome found, so PDFs use the built-in writer (plain Helvetica, one column). "
               "That is fine; install Chrome only if you want the nicer layout.")
