@@ -29,6 +29,7 @@ resume-builder/
     cover-letter.md         the 5-part, under-250-word cover letter
     prep-sheet.md           interview prep sheet
     pushback.md             what to do when a request goes against the process
+    fast-path.md            the short version when you are in a hurry
     special-cases.md        students, career changers, gaps, newcomers
     ai-disclosure.md        how to say where AI helped
   assets/                   fact sheet and resume templates
@@ -101,6 +102,10 @@ python3 resume-builder/scripts/check_resume.py my-resume/resume.md \
 ```
 
 Try the sample first: `examples/sample-resume.md` (a fictional person).
+
+## Tested
+
+Before release it was run end to end on three fictional people: a first-year student with no experience, a career changer who asked for two pages, and a newcomer with an interview next week who asked to hide her AI use. Those runs found and fixed number-check bugs, short-posting keyword matching, naming conflicts and missing questions. Every rule held: no invented numbers or skills.
 
 ## Privacy
 

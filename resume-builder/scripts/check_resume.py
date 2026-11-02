@@ -16,16 +16,18 @@ from pathlib import Path
 BANNED = ["spearheaded", "leveraged", "utilized", "synergy", "pivotal", "intricate", "realm", "showcasing",
           "delve", "robust", "seamless", "dynamic", "results-driven", "passionate", "proven track record",
           "detail-oriented", "fast-paced", "team player", "go-getter", "hard-working"]
+AI_TOOLS = ["chatgpt", "claude", "copilot", "gemini", "codex", "midjourney", "perplexity", "cursor", "grammarly"]
 STOP = set("a an the and or of to in for with on at by from as is are be your you we our will can must have has "
-           "this that these those it its their they who what which about into over more other than such not".split())
+           "this that these those it its their they who what which about into over more other than such not requires require required nice preferred applicants applicant must live work experience skills ability strong".split())
 
 
 def numbers(text):
-    return set(re.findall(r"\$?\d[\d,]*\.?\d*%?", text))
+    found = re.findall(r"\$?\d[\d,]*(?:\.\d+)?%?", text)
+    return {n.rstrip(",.") for n in found}
 
 
 def words(text):
-    return re.findall(r"[a-z][a-z+#.\-]{2,}", text.lower())
+    return [w.rstrip(".-") for w in re.findall(r"[a-z][a-z+#.\-]{2,}", text.lower())]
 
 
 def main():
@@ -35,6 +37,7 @@ def main():
     ap.add_argument("--posting")
     ap.add_argument("--pdf")
     ap.add_argument("--type", choices=["resume", "letter"], default="resume")
+    ap.add_argument("--max-pages", type=int, default=1, help="pages allowed (default 1; use 2 only if the person chose it and the content fills it)")
     a = ap.parse_args()
     md = Path(a.resume).read_text(encoding="utf-8")
     low = md.lower()
@@ -49,7 +52,7 @@ def main():
     if a.pdf:
         data = Path(a.pdf).read_bytes()
         pages = len(re.findall(rb"/Type\s*/Page[^s]", data))
-        report(pages == 1, f"resume is one page ({pages} found)")
+        report(1 <= pages <= a.max_pages, f"document is within {a.max_pages} page(s) ({pages} found)")
         report(len(Path(a.pdf).name) <= 50, f"file name {len(Path(a.pdf).name)} characters (max 50)")
 
     report("—" not in md and "–" not in md, "no em or en dashes")
@@ -78,11 +81,17 @@ def main():
     if a.profile:
         prof = Path(a.profile).read_text(encoding="utf-8")
         known = numbers(prof)
-        # ignore years and dates-style numbers; they are checked by eye
-        unknown = sorted(n for n in numbers(md) if n not in known and not re.fullmatch(r"(19|20)\d\d", n)
-                         and n not in {"1", "2", "3", "0", "10", "10.5", "11"})
+        body = md
+        if a.type == "resume":
+            body = md.split("\n## ", 1)[1] if "\n## " in md else md  # skip the contact header
+        else:
+            m2 = re.search(r"Dear .*?,(.*?)Sincerely", md, re.S)
+            body = m2.group(1) if m2 else md
+        unknown = sorted(n for n in numbers(body) if n not in known and not re.fullmatch(r"(19|20)\d\d", n))
         report(not unknown, "every number appears in profile.md" + (f": check {unknown}" if unknown else ""))
         report("CONFIRM" not in md, "no unresolved CONFIRM marks in the resume")
+        used = [x for x in AI_TOOLS if x in low and x not in prof.lower()]
+        report(not used, "AI tools named here are confirmed in profile.md" + (f": not in profile {used}" if used else ""))
 
     if a.posting:
         post = Path(a.posting).read_text(encoding="utf-8", errors="ignore")
@@ -91,10 +100,12 @@ def main():
             if w not in STOP:
                 freq[w] = freq.get(w, 0) + 1
         terms = [w for w, n in sorted(freq.items(), key=lambda x: -x[1]) if n >= 2][:25]
-        have = [t for t in terms if t in low]
-        miss = [t for t in terms if t not in low]
+        if len(terms) < 8:  # short posting: fall back to every meaningful word
+            terms = [w for w, n in sorted(freq.items(), key=lambda x: (-x[1], -len(x[0]))) if len(w) >= 4][:25]
+        have = [t_ for t_ in terms if t_ in low]
+        miss = [t_ for t_ in terms if t_ not in low]
         pct = round(100 * len(have) / len(terms)) if terms else 0
-        print(f"INFO keyword coverage {pct}% of {len(terms)} frequent posting terms")
+        print(f"INFO keyword coverage {pct}% of {len(terms)} posting terms")
         print(f"INFO matched: {have}")
         print(f"INFO missing (add only if TRUE, otherwise list in needs-input.md): {miss}")
 

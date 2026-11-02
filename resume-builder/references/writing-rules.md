@@ -41,3 +41,17 @@ Also: **no em dashes or en dashes** (use "to", a comma or a new sentence), no em
 
 ## Review pass before showing anything
 Read it as a skeptical recruiter: Is every number traceable to `profile.md`? Does any bullet start the same way as the one above? Would the person be comfortable explaining each line for two minutes? Any word from the banned list?
+
+## Thin profiles: no padding
+If the person has little to show, a short honest resume beats a padded one. Do not add vague detail the person did not state ("on the routine", "fixed and tested", "worked closely with the team"). Every phrase should trace to something they said. If a bullet has no result, ask one follow-up question instead of inventing one. A resume that fills two thirds of a page is fine.
+
+## Hedged numbers
+If the person says "about 12%", write "about 12%" and keep it identical in the resume, letter and prep sheet. Never convert it to a rounder or bigger number.
+
+## Soft-skill keywords
+Words like "stakeholder communication" or "teamwork" go on only if the person gave you an example. Otherwise show them through a bullet or leave them in `needs-input.md`. Do not ask leading questions ("Are you okay at stakeholder communication?"); ask for a story ("Tell me about a time you explained something to a manager").
+
+## File names
+- Master PDF: `First_Last_Resume.pdf`
+- Per job: `First_Last_Resume_<Company>.pdf`, `First_Last_CoverLetter_<Company>.pdf` (the `.md` sources and `prep.md` may keep short names)
+- At most 50 characters, no spaces.

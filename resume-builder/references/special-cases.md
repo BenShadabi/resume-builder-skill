@@ -29,3 +29,16 @@
 
 ## Creative or academic CVs
 - Many countries use longer CVs for academia, medicine or some European jobs. If the person says one page is not the norm, follow their norm and tell them what changes.
+
+## Thin profiles (one project, one volunteer role, no paid work)
+1. Ask three follow-ups before drafting: what the project does and who it is for, what exactly they did in the volunteer role (and how many people or how often), and what they would show an interviewer.
+2. Target 2 bullets per item. Accept a short resume. Do not pad (see writing-rules.md).
+3. Do not stretch a project into a match for the posting ("close to Python scripting"). Name the real overlap and leave the rest to the interview.
+4. Check the student year against the dates and ask if they differ.
+
+## Employment gaps (person chooses)
+- Options: show years only, add a one-line honest explanation, or fill it with real learning (courses, projects with dates). Ask which they prefer and record it.
+- If they leave the gap off, write a one-sentence spoken answer in `prep.md` so they are not surprised in an interview.
+
+## Work authorization wording
+Never decide or state eligibility for them and do not give legal advice. Record the facts they give (status, permit dates) in `needs-input.md` as a private flag, and tell them to answer each portal's question truthfully with the exact wording the portal asks for. Do not put permit status on the resume unless they ask.

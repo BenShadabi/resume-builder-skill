@@ -99,10 +99,14 @@ def page_count(pdf):
 
 
 def main():
-    if len(sys.argv) < 2:
-        sys.exit(__doc__)
-    src = Path(sys.argv[1]).resolve()
-    dst = (Path(sys.argv[2]) if len(sys.argv) > 2 else src.with_suffix(".pdf")).resolve()
+    import argparse
+    ap = argparse.ArgumentParser(description="Turn a resume or letter .md into a one-column PDF (needs Chrome, Chromium or Edge).")
+    ap.add_argument("source", help="the .md file (see references/format.md)")
+    ap.add_argument("output", nargs="?", help="PDF path (default: same name as the .md)")
+    ap.add_argument("--max-pages", type=int, default=1, help="warn above this many pages (default 1)")
+    args = ap.parse_args()
+    src = Path(args.source).resolve()
+    dst = (Path(args.output) if args.output else src.with_suffix(".pdf")).resolve()
     chrome = find_chrome()
     if not chrome:
         sys.exit("Could not find Chrome, Chromium or Edge. Install one, or open the .html this script writes "
@@ -116,8 +120,8 @@ def main():
                        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=90)
     pages = page_count(dst)
     print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''})")
-    if pages > 1:
-        print("WARNING: more than one page. Cut the oldest or least relevant bullets, then rebuild.")
+    if pages > args.max_pages:
+        print(f"WARNING: more than {args.max_pages} page(s). Cut the oldest or least relevant bullets, then rebuild.")
     html_path.unlink(missing_ok=True)
 
 

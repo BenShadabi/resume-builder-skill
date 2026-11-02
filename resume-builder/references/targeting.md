@@ -24,3 +24,6 @@ Per posting, decide: which summary phrase, which skills first, which bullets lea
 
 ## Employer-specific rules
 Portals sometimes demand one combined PDF, a transcript, a certain length or a certain file name. Read the posting's application instructions and follow them; the portal's rules win over this skill.
+
+## If the person gives posting text instead of a link
+Save the text to `posting.txt` and say plainly that you could not check if it is still open. Ask them to check the page themselves and note the date they checked.

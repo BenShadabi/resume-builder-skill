@@ -24,3 +24,6 @@ Search the company: recent news, product launches, reports, mission or values pa
 
 ## File format
 Use the same markdown builder as the resume. Template: `assets/cover-letter-template.md`. Build with `scripts/build_resume.py cover-letter.md cover-letter.pdf`, check with `scripts/check_resume.py cover-letter.md --type letter`.
+
+## When the company cannot be researched
+If the company is unknown, fictional or you cannot verify anything, do not invent news. Use the posting's own wording for the opening and add a line to `needs-input.md`: "Company research not done: verify and add one real, dated item before sending."

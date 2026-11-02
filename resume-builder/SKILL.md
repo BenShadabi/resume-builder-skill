@@ -21,10 +21,12 @@ Ask where to save (default `./my-applications/`):
 
 ```
 my-applications/
-  profile.md        fact sheet built from the interview (source of truth)
-  resume.md         master resume (simple markdown, see references/format.md)
+  profile.md                 fact sheet built from the interview (source of truth)
+  resume.md                  master resume (simple markdown, see references/format.md)
+  First_Last_Resume.pdf      master PDF
   jobs/<company-role>/
-      posting.txt  resume.md  resume.pdf  cover-letter.md  cover-letter.pdf  prep.md  needs-input.md
+      posting.txt  resume.md  needs-input.md  prep.md
+      First_Last_Resume_<Company>.pdf   First_Last_CoverLetter_<Company>.pdf   (file names under 50 characters)
 ```
 
 Scripts live in `scripts/` next to this file. Run with `python3` (standard library only).
@@ -41,6 +43,7 @@ Tell the person which phase they are in. Keep a task list.
    - **The one rule:** I only write what you tell me, and I will ask about every number. That keeps you safe in interviews.
    - **Your choices:** which documents you want (resume, cover letter, interview prep sheet), what you want to apply for, and how it looks. You can say no to any suggestion of mine.
 3. Ask which documents they want and which situation applies (student, graduate, career changer, returning, experienced).
+4. If they are in a hurry (interview this week, deadline tomorrow), offer the shorter path in `references/fast-path.md` instead of all 48 questions.
 
 ### Phase 1: Interview (Rounds 1 to 8)
 Follow `references/question-bank.md`. Ask 5 to 8 questions at a time and wait. After each round:
@@ -49,7 +52,7 @@ Follow `references/question-bank.md`. Ask 5 to 8 questions at a time and wait. A
 - If they have little or no work experience, use `references/special-cases.md`.
 
 ### Phase 2: Read it back
-Show a short summary of `profile.md`: who they are, target roles, every claim that has a number, every `CONFIRM`. Do not draft until they say it is accurate. This is where inflated or invented claims get caught.
+Show a short summary of `profile.md`: who they are, target roles, every claim that has a number, every `CONFIRM`. Sanity-check dates against the story (for example, "first-year" with a start date two years ago, or overlapping jobs) and ask. If they said "about" for a number, keep the word "about" everywhere and offer a chance to check records before it goes out. Do not draft until they say it is accurate. This is where inflated or invented claims get caught.
 
 ### Phase 3: Pick the target
 Use `references/targeting.md`. Turn goals into 1 to 3 lanes (groups of similar jobs that can share one resume), rank them, collect real postings and check each is still open.
@@ -71,7 +74,7 @@ Run `scripts/check_resume.py` on each resume (`--type letter` for letters) and f
 - Their personal data stays on their machine. Do not post it or paste it into outside tools.
 
 ## Defaults the person may change
-One page, one column, plain text PDF, standard headings, no em dashes, no banned buzzwords, GPA and photo off, file name under 50 characters. See `references/pushback.md` for how to handle a request to change these.
+One page, one column, plain text PDF, standard headings, no em dashes, no banned buzzwords, GPA and photo off, file name `First_Last_Resume_<Company>.pdf` under 50 characters. If a person's real content fills well under a page, say so and recommend a short resume over padding; never add filler. See `references/pushback.md` for how to handle a request to change these.
 
 ## When to read which reference
 | Need | File |
@@ -84,6 +87,7 @@ One page, one column, plain text PDF, standard headings, no em dashes, no banned
 | Cover letter | `references/cover-letter.md` |
 | Interview prep sheet | `references/prep-sheet.md` |
 | When the person asks for something against the process | `references/pushback.md` |
-| Students, changers, gaps, newcomers | `references/special-cases.md` |
+| In a hurry, shorter path | `references/fast-path.md` |
+| Students, thin profiles, changers, gaps, newcomers | `references/special-cases.md` |
 | Saying where AI was used | `references/ai-disclosure.md` |
 | Templates | `assets/` |

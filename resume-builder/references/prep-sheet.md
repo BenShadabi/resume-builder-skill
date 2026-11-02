@@ -20,3 +20,6 @@ One per posting, only if the person wants it. A prep sheet is for the person, no
 - Never write a story the person has not told you. The point is to help them remember their own experience.
 - Keep each bullet's answer short enough to say in about 30 seconds.
 - Flag skills at "learning" level so they are ready to be honest about them.
+
+## When the company cannot be researched
+Write "Not researched" under Company and Recent items, and add it to Needs your input. Do not guess.

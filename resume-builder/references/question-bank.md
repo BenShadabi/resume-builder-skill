@@ -23,7 +23,7 @@ How to use: ask one round at a time (5 to 8 questions). Say "skip" is fine. Reph
 16. (Private, never goes on the resume.) Is there a minimum pay you need? Use it only to filter postings.
 
 ## Round 3: Education
-17. School, program or degree, city and country?
+17. School, degree type (diploma, bachelor, master, certificate) and program, city and country? Are you full-time, and which year are you in?
 18. Start and expected or actual end dates (month and year)?
 19. Which courses are most relevant to the jobs above, and have you completed them or are they upcoming? (Only list courses you took or are enrolled in.)
 20. Do you want to show your grades? (Recommend leaving GPA off unless it is strong or the posting requires it. If a posting requires a minimum, record the real number privately so you can answer honestly on the form.)
@@ -40,11 +40,11 @@ How to use: ask one round at a time (5 to 8 questions). Say "skip" is fine. Reph
 29. How did you measure it, or how do you know it worked?
 30. Which tools, software or methods did you use for it?
 31. Who did you serve: customers, colleagues, managers, vendors, the public?
-32. Any promotion, award, praise or extra responsibility you were given? Anything about this job you would rather leave off, or a gap in dates you want to explain?
+32. Any promotion, award, praise or extra responsibility you were given? Anything about this job you would rather leave off? Is there a gap in dates, and what have you done since your last job (courses, projects, volunteering) to move toward the new work?
 
 ## Round 5: Projects (school, personal, volunteer, open source, competitions)
-33. List up to 4 projects you are proud of, one line each.
-34. For each: what problem were you solving, and for whom?
+33. List up to 4 projects you are proud of, one line each. (If you have none, say so; we will use volunteering, coursework or part-time work instead.)
+34. For each: what does it do, what problem were you solving, and for whom?
 35. What data, tools or methods did you use?
 36. What was the result? A number, a decision, a prototype, a grade, users?
 37. Was it solo or a team? Exactly which part did you do yourself?
@@ -58,7 +58,7 @@ How to use: ask one round at a time (5 to 8 questions). Say "skip" is fine. Reph
 43. Any soft skills with a real example (for example you trained someone, ran a team, handled a hard customer)? Soft skills are shown through bullets, not listed as adjectives.
 
 ## Round 7: Extras and AI use
-44. Volunteering, clubs, sports, leadership, competitions, hackathons? Dates and what you did.
+44. Volunteering, clubs, sports, leadership, competitions, hackathons? Dates, what you did exactly, how many people or how often, and whether you trained or led anyone.
 45. Publications, talks, teaching, mentoring?
 46. Do you use AI tools (Claude, ChatGPT, Copilot, Codex, others) for your work or projects? Which tools, at which steps (for example drafting code, summarising, checking), and what did you do yourself (decide the question, supply data, edit, test)? Name only tools you actually use.
 47. Could you explain and re-do the AI-assisted parts yourself in an interview? (If not, we will word it carefully and flag it for practice.)
