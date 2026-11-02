@@ -57,6 +57,7 @@ Write "Jul 2025 to present (contract, ends Dec 2026)" if they know the end; othe
 Ask scope before writing any leadership claim: how many people (direct reports vs. team), budget (set it, track it, or only see a report), and what they decided themselves. A person who only sees a budget report did not manage the budget; write what they did.
 
 ## Certifications and licences
+If a certification or licence has lapsed, do not list it as current. Options: list it with "expired YYYY", list it as "renewal in progress" only if they confirm that, or leave it off; record the choice and the lapse in `needs-input.md`.
 Give them a CERTIFICATIONS section (name, year, expiry). Check expiry dates against today and ask if anything has lapsed.
 
 ## Non-English resumes

@@ -27,6 +27,13 @@ def fold(text):
     return "".join(c for c in unicodedata.normalize("NFKD", text.lower()) if not unicodedata.combining(c))
 
 
+def stem(w):
+    for suf in ("ing", "ed", "es", "ly", "s"):
+        if len(w) > len(suf) + 3 and w.endswith(suf):
+            return w[: -len(suf)]
+    return w
+
+
 def norm_num(n):
     s = n.replace(" ", "").rstrip(",.")
     if re.fullmatch(r"\$?\d{1,3}([.,]\d{3})+%?", s):  # 1.500 or 1,500 are both fifteen hundred
@@ -131,10 +138,11 @@ def main():
         if len(terms) < 8:  # short posting: fall back to every meaningful word
             terms = [w for w, n in sorted(freq.items(), key=lambda x: (-x[1], -len(x[0]))) if len(w) >= 3][:25]
         doc = fold(md)
-        have = [x for x in terms if re.search(r"(?<![a-z0-9])" + re.escape(x) + r"(?![a-z0-9])", doc)]
+        doc_stems = {stem(w) for w in re.findall(r"[a-z0-9+#.\-]+", doc)}
+        have = [x for x in terms if stem(x) in doc_stems or re.search(r"(?<![a-z0-9])" + re.escape(x) + r"(?![a-z0-9])", doc)]
         miss = [x for x in terms if x not in have]
         pct = round(100 * len(have) / len(terms)) if terms else 0
-        print(f"INFO keyword coverage {pct}% of {len(terms)} posting terms (whole words, accents ignored)")
+        print(f"INFO keyword coverage {pct}% of {len(terms)} posting terms (whole words, light stemming, accents ignored)")
         print(f"INFO matched: {have}")
         print(f"INFO missing (add only if TRUE, otherwise list in needs-input.md): {miss}")
         print("INFO coverage is a rough guide: read the missing list yourself; it is not run on letters because negations like 'I have not used X' would count as matches")

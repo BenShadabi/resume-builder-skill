@@ -3,10 +3,10 @@
 Why: employers, schools and coordinators increasingly ask. Hiding AI risks trust; overstating it ("AI did it all") risks the person's credibility. The honest middle is to show AI inside specific steps and what the person did.
 
 ## Rules
-- Name only tools the person confirmed in Round 7 (Q46). Never add a tool because it is popular.
+- Name only tools the person confirmed in Q9. Never add a tool because it is popular.
 - Describe a step, not a magic result: "Used <tool> to draft <what>, then edited and tested it myself."
 - State what the person did: decided the question, supplied the data or assumptions, edited, tested, checked the numbers.
-- Do not write an AI claim the person cannot explain in an interview. If they answered "no" to Q47, word it carefully and add a practice note in `needs-input.md`.
+- Do not write an AI claim the person cannot explain in an interview. If they said they could not redo the AI-assisted part themselves, word it carefully and add a practice note in `needs-input.md`.
 - If a posting or school says to limit or disclose AI use, follow it.
 - Put it where it fits: one clause in the summary, the tools in the Skills line ("AI tools (X) to draft code and checks"), and the step in each relevant project bullet.
 

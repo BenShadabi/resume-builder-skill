@@ -1,6 +1,6 @@
 # Cover letter
 
-Write one only if the person wants it and the posting does not say "resume only". Everything comes from `profile.md` and real research about the company.
+Write one only if the person wants it and the posting does not say "resume only". Everything comes from `profile.md` and from company text the person provided.
 
 ## Why this structure
 Recruiters skim a letter in under a minute. It should prove three things fast: you read about this company, you can do the job, and you can be honest and clear. Five short parts, about 2 sentences each, under 250 words, one page, same font as the resume.
@@ -12,8 +12,8 @@ Recruiters skim a letter in under a minute. It should prove three things fast: y
 4. **Experience:** your strongest relevant result with a real number from `profile.md`.
 5. **Close:** the company's mission or value you actually share, what you would bring, and a plain thank-you.
 
-## Research step
-Search the company: recent news, product launches, reports, mission or values page. Use 1 verified item with its date. If sources disagree or you could not confirm, say less or hedge, and list the item in `needs-input.md` as "verify before quoting". If you cannot find anything real, use the posting's own wording instead of inventing.
+## Company facts: only what the person gave you
+Use the posting's own wording, and any company text or news the person pasted or sent. Do not search the web unless they ask. If they ask, add one verified, dated item, mark it `researched: <URL, date>`, and list it in `needs-input.md` to verify before sending. With nothing to use, write the opening from the posting and say so (see the last section).
 
 ## Rules
 - Under 250 words in the body. One page. No bullet lists.

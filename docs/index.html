@@ -29,7 +29,7 @@ p.lead{color:var(--mute);margin:0 0 24px;font-size:18px}
 .warn{background:var(--warnbg);border-color:transparent}.warn h3{color:var(--warn)}
 pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:14px}
 code{font-family:ui-monospace,Menlo,Consolas,monospace}
-@media (max-width:640px){.steps{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+@media (max-width:640px){.steps{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr!important}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -37,6 +37,13 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace}
 <main>
 <h1>Resume Builder skill</h1>
 <p class="lead">From nothing to a resume, cover letter and interview prep that are honest, one page and matched to the job. You decide. Claude advises.</p>
+
+<h2>Pick your path</h2>
+<div class="two" style="grid-template-columns:repeat(3,1fr)">
+<div class="card"><h3>Quick</h3><p style="margin:0;color:var(--mute)">8 questions, 5 to 10 minutes. Paste your old resume and a posting.</p></div>
+<div class="card" style="border-color:var(--acc)"><h3>Standard (recommended)</h3><p style="margin:0;color:var(--mute)">About 10 questions, 10 to 15 minutes. Most people.</p></div>
+<div class="card"><h3>Deep</h3><p style="margin:0;color:var(--mute)">Add-on rounds for academics, managers, career changers.</p></div>
+</div>
 
 <h2>The 8 phases (click one, or watch it play)</h2>
 <div class="steps" id="steps"></div>
@@ -52,10 +59,13 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace}
 <p style="margin:8px 0 0;color:var(--mute)">If a request goes against the process, Claude says why once, offers a better option, then follows your choice (except for the list above).</p></div>
 </div>
 
+<h2>Send your files, Claude uses only those</h2>
+<div class="card"><p style="margin:0 0 8px;color:var(--mute)">Old resume, LinkedIn text, transcripts, project write-ups, reviews with numbers, job postings. Claude does not search the web or invent "typical" duties. Everything comes from you, and each fact is tagged with its source. No passwords, ID or bank details.</p></div>
+
 <h2>What you need</h2>
 <div class="card"><ul>
-<li>20 to 40 minutes, and honest numbers from your work if you have them</li>
-<li>Your old resume or LinkedIn, and 1 to 3 job postings (optional)</li>
+<li>5 to 15 minutes, and honest numbers from your work if you have them</li>
+<li>Files to send (old resume, LinkedIn text, anything with real numbers) and 1 to 3 job postings, all optional</li>
 <li>Python 3 and Chrome, Chromium or Edge. Nothing else to install.</li></ul></div>
 
 <h2>Quick start</h2>
@@ -67,7 +77,7 @@ Use the resume-builder skill. Start with the setup check.</code></pre>
 <script>
 const P=[
 ["Set up","Checks your computer, then explains the plan in plain words: how long it takes, what you decide, the one rule (only your facts)."],
-["Interview","About 48 questions in 8 short rounds: basics, goals, education, experience with numbers, projects, skills, AI use, style. Say skip any time."],
+["Questions","Pick a path: Quick (8 questions), Standard (about 10) or Deep. Send your files and Claude only asks what is missing. Say skip any time."],
 ["Read back","A summary of your fact sheet so you can fix anything wrong before anything is written."],
 ["Pick targets","Turn goals into 1 to 3 job lanes, score fit honestly, check each posting is still open."],
 ["Master resume","A one-page, plain-text, ATS-friendly resume from your facts. You edit it as text first."],

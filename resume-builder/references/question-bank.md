@@ -1,73 +1,55 @@
-# Question bank (48 questions, 8 rounds)
+# Question bank
 
-How to use: ask one round at a time (5 to 8 questions). Say "skip" is fine. Rephrase to suit the person. Record every answer in `profile.md`. If an answer is vague, ask one follow-up, not five. Questions marked (if any) can be dropped when they do not apply.
+Three paths (see `paths.md`): **Quick** asks the 8 questions marked (Q), **Standard** (the default) asks the core 11 (usually 8 to 10 after skips), **Deep** adds the add-on rounds when they matter.
 
-## Round 1: Basics and situation
-1. What name should appear on the resume (as on your ID or the name you use at work)?
-2. Which city and country are you applying in? Are you open to other cities, remote or relocating?
-3. What contact details should go on it: phone, a professional email, LinkedIn, portfolio or GitHub? (Avoid joke emails; a school or work email is fine if you use it.) Also: what is normal on resumes where you apply (photo, date of birth, one page, paper size)? You know your market better than I do.
-4. Which describes you best: student, recent graduate, career changer, returning after a break, early career, experienced?
-5. What are you looking for: full-time, internship, co-op, contract, part-time?
-6. When do you want to start, and is there a fixed term (for example May to August)?
-7. Do you have a deadline or a number of applications you want to send? Anything urgent?
-8. Do you need permission to work where you are applying (visa, permit, school letter)? You do not have to share details; I only need to know if I should flag eligibility for each posting.
+How to ask: one round at a time (3 to 5 questions), plain words, wait for answers. "Skip" and "I don't know" are fine. Accept messy or dictated answers. Record everything in `profile.md`.
 
-## Round 2: What you want
-9. What are your top 3 job titles or kinds of work?
-10. Which industries interest you, in order?
-11. What kind of employer: large company, startup, bank, government, non-profit, agency, no preference?
-12. What do you want to avoid (kinds of work, industries, travel, shifts)?
-13. Is on-site, hybrid or remote acceptable? Any commute limit?
-14. Would you take an adjacent job as a stepping stone to your top choice? Which ones?
-15. What do you hope to learn or get from the next role?
-16. (Private, never goes on the resume.) Is there a minimum pay you need? Use it only to filter postings.
+Rules that keep it short:
+- **Shortcut first.** If the person has an old resume, LinkedIn text or a posting, ask them to send it (Q3). Read it, write what you learned into `profile.md`, and only ask about what is missing or unclear. This is the biggest time saver.
+- **Follow up only on what they mention.** Do not ask about a job, project or skill they did not bring up.
+- **One follow-up per vague answer, not five.** The one that matters most is a real number for each result.
 
-## Round 3: Education
-17. School, degree type (diploma, bachelor, master, certificate) and program, city and country? Are you full-time, and which year are you in?
-18. Start and expected or actual end dates (month and year)?
-19. Which courses are most relevant to the jobs above, and have you completed them or are they upcoming? (Only list courses you took or are enrolled in.)
-20. Do you want to show your grades? (Recommend leaving GPA off unless it is strong or the posting requires it. If a posting requires a minimum, record the real number and its scale privately so you can answer honestly on the form. Skip this for a PhD or long-experienced person.)
-21. Any honours, scholarships, awards or dean's list?
-22. Any certificates, licences or professional courses (with dates)?
-23. Any other education (exchange, bootcamp, earlier degree) worth a line?
+## Core 12 (Standard path)
 
-## Round 4: Work experience (repeat 24 to 32 for each job, newest first, up to 4)
-24. Job title, employer, city and country, start and end month/year?
-25. What does the employer do, in one sentence? Was it full-time, part-time, your own business?
-26. Who did you work with or report to, and how big was the team?
-27. What were your 3 biggest tasks or responsibilities?
-28. For each one, what changed because of you? Give numbers if you have them: percent, dollars, hours, counts, before and after. If you have no number, say so and describe the change in words. Also the scale (how many people, how big a budget, how much data) and whether you owned the number or only saw it reported.
-29. How did you measure it, or how do you know it worked?
-30. Which tools, software or methods did you use for it?
-31. Who did you serve: customers, colleagues, managers, vendors, the public?
-32. Any promotion, award, praise or extra responsibility you were given? Anything about this job you would rather leave off? Is there a gap in dates, and what have you done since your last job (courses, projects, volunteering) to move toward the new work?
+### Round 1: You and your goal
+1. (Q) Name, city and country, and the contact details to show (phone, professional email, LinkedIn or portfolio).
+2. (Q) Which fits you: student, recent graduate, career changer, returning after a break, early career or experienced? What do you want (full-time, internship, co-op or contract), starting when, any deadline? Your top 1 to 3 job titles, industries and where (city, remote). Do you need permission to work there (yes, no, pending)? I only flag it per posting.
+3. (Q) Send me anything you have: old resume, LinkedIn text, transcript, project write-ups, reviews or reports with numbers, job postings. I use only what you give me, not the web, and I will only ask for what is missing.
 
-## Round 5: Projects (school, personal, volunteer, open source, competitions)
-33. List up to 4 projects you are proud of, one line each. (If you have none, say so; we will use volunteering, coursework or part-time work instead.)
-34. For each: what does it do, what problem were you solving, and for whom?
-35. What data, tools or methods did you use?
-36. What was the result? A number, a decision, a prototype, a grade, users?
-37. Was it solo or a team? Exactly which part did you do yourself?
-38. Is there a public link (repo, demo, document)? Is anything in it private or graded, so it must stay off the resume?
+### Round 2: Education and credentials
+4. School, degree type and program, city and country, dates (expected or actual) and your year. Also: courses or certifications that matter (with year and expiry date) and any honours. (GPA stays off unless a posting requires it or you want it; if required, give me the number and its scale and I will keep it private.) Skip if your files already say it, but tell me if a licence has lapsed.
 
-## Round 6: Skills and tools
-39. List your tools and software, and rate each: comfortable (use it unsupervised), okay (need to look things up), learning, or only seen it. Only the first two go on the resume as skills; "learning" can be shown in brackets.
-40. Which of those have you used in real work or a real project (not just a class)? Which project proves it?
-41. Languages you speak, and your level in each (native, fluent, working, basic, or a CEFR level like B2)?
-42. Are there skills you think you should list but are not sure about? I will hold them as "confirm" and not put them on the resume until you decide.
-43. Any soft skills with a real example (for example you trained someone, ran a team, handled a hard customer)? Soft skills are shown through bullets, not listed as adjectives.
+### Round 3: Work experience
+5. (Q) Your 1 to 3 most relevant jobs: title, employer, city and country, dates, and one line on what the employer does.
+6. (Q) For the top 2: your 3 biggest tasks and what changed because of you. Give numbers if you have them (percent, dollars, hours, counts, before and after). No number is fine, just say so. If you say "about", I will keep "about".
 
-## Round 7: Extras and AI use
-44. Volunteering, clubs, sports, leadership, competitions, hackathons? Dates, what you did exactly, how many people or how often, and whether you trained or led anyone.
-45. Publications, talks, teaching, mentoring? For each publication: title, venue, year and your position among the authors. Any certifications that expire?
-46. Do you use AI tools (Claude, ChatGPT, Copilot, Codex, others) for your work or projects? Which tools, at which steps (for example drafting code, summarising, checking), and what did you do yourself (decide the question, supply data, edit, test)? Name only tools you actually use.
-47. Could you explain and re-do the AI-assisted parts yourself in an interview? (If not, we will word it carefully and flag it for practice.)
-48. Anything else you are proud of, or a story that does not fit anywhere else?
+### Round 4: Projects, skills and AI
+7. 1 or 2 projects, volunteering, clubs or coursework you are proud of: what it was, who it was for, your part (solo or team), tools, result and a public link. Say if anything is private or graded and must stay off. Skip if you have none.
+8. (Q) Tools, software and languages with an honest level: comfortable (use unsupervised), okay (look things up), learning, or only seen. The first two go on as skills, "learning" goes in brackets. For spoken languages use native, fluent, conversational, working, basic, or a CEFR level such as B2.
+9. (Q) Do you use AI tools for your work or projects? Which, at which step, and what did you do yourself (decide, supply data, edit, test)? "None" is a fine answer. Name only tools you really use.
 
-## Wrap-up questions (ask after Round 7, do not count toward the 48)
-- What resume length and style is normal where you apply (one page in Canada and the US; CV conventions differ elsewhere)? Photo, date of birth or address are usually left off in North America.
-- Do you need Word as well as PDF?
-- Paste 1 to 3 job postings or links you want to target first.
+### Round 5: Leave-offs and postings
+10. Anything you want left off, a gap in dates to handle, or a claim you are unsure you can back up? I will keep those off until you decide. (Also: is anything about resume style unusual where you apply, such as a photo, date of birth, a different paper size or a different language? If not, I use one page, plain text, no photo.)
+11. (Q) Paste 1 to 3 postings you want to target first, and say which documents you want: resume, cover letter, interview prep sheet.
 
-## After the interview
-Read back a summary (Phase 2 in SKILL.md) and mark every item that is still `CONFIRM`.
+That is 11 numbered questions; many are skipped because files or earlier answers already cover them, so people typically answer 8 to 10.
+
+## Add-on rounds (Deep path, or only when the situation calls for them)
+
+**A. Experience deep dive, per job**: who you worked with and the team size; how you measured each result; who you served; promotions or praise; what you have done since your last job to move toward new work; the scale (how many people, how big a budget, how much data) and whether you owned the number or only saw it reported.
+
+**B. Project deep dive**: the problem, the data, what you decided versus what a tool or teammate did, the number that shows it worked.
+
+**C. Special situations** (ask only if they apply)
+- Academics: each publication's title, venue, year and your author position; dataset sizes; whether you ever ran anything in production.
+- Managers: people supervised (direct or team), budget set versus only seen, decisions you made yourself.
+- Licensed or certified: name, year and expiry date for each; check expiries against today.
+- Contracts: end date known or unknown.
+- Newcomers: local experience, language levels, eligibility notes.
+
+**D. Extras**: volunteering, clubs, sports, competitions (dates, what you did, how many people), talks, teaching, mentoring.
+
+**E. Private (never goes on the resume)**: minimum pay, roles to avoid, travel limits.
+
+## After the questions
+Read back a short summary (Phase 2 in SKILL.md) and mark everything still `CONFIRM`.

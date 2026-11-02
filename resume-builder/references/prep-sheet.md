@@ -4,8 +4,8 @@ One per posting, only if the person wants it. A prep sheet is for the person, no
 
 ## Sections
 1. **30-second intro:** who you are, one proof point, why this role.
-2. **Company in 60 seconds:** what it does, size or reach, and where the facts came from.
-3. **Three recent items:** projects, deals, launches or news with dates. Hedge anything unconfirmed.
+2. **Company in 60 seconds:** only from the posting or text the person gave you, with where it came from. Otherwise "Not researched".
+3. **Recent items:** only items the person provided, with dates. Otherwise "Not researched"; do not search unless asked.
 4. **The role in plain words:** what you would do in week one.
 5. **Resume bullets, one by one:** for each bullet a likely follow-up question and a 3-line story: what it was, what I did, what changed. Use only facts in `profile.md`. If a story detail is missing, write "Ask me" and let the person fill it in their words.
 6. **AI process:** for each AI-assisted project, the step AI did, what the person did and how they checked it, so they can explain it.

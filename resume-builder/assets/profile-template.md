@@ -1,6 +1,6 @@
 # Fact sheet (profile.md)
 
-Only facts the person has told you. Mark anything unsure `CONFIRM`. This file is the source of truth for every resume.
+Only facts the person has told you or sent in files. Tag each fact with its source, for example `(source: old-resume.pdf)` or `(source: answer Q10)`. Mark anything unsure `CONFIRM`. This file is the source of truth for every resume.
 
 ## Who
 - Name:
