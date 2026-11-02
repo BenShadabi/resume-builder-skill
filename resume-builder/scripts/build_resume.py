@@ -1,0 +1,125 @@
+#!/usr/bin/env python3
+"""Turn resume.md into an ATS-friendly one-column PDF using headless Chrome or Chromium.
+
+Usage: build_resume.py resume.md [out.pdf]
+
+Needs Google Chrome, Chromium or Microsoft Edge installed. No Python packages needed.
+Prints the page count. See references/format.md for the markdown format.
+"""
+import html
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+CHROME_CANDIDATES = [
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+    "google-chrome", "google-chrome-stable", "chromium", "chromium-browser", "microsoft-edge",
+    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+    r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+]
+
+CSS = """
+@page { size: Letter; margin: 0.55in 0.6in; }
+body { font-family: Calibri, Carlito, 'Helvetica Neue', Arial, sans-serif; font-size: 10.5pt;
+       line-height: 1.28; color: #111; margin: 0; }
+h1 { font-size: 20pt; margin: 0 0 2pt 0; letter-spacing: 0.3px; }
+.contact { font-size: 10pt; margin: 0; }
+h2 { font-size: 11pt; margin: 10pt 0 3pt 0; padding-bottom: 1pt; border-bottom: 1px solid #333;
+     letter-spacing: 0.6px; }
+.row { display: flex; justify-content: space-between; margin-top: 4pt; font-weight: bold; }
+.row span.r { font-weight: normal; }
+p { margin: 1pt 0; }
+ul { margin: 2pt 0 2pt 16pt; padding: 0; }
+li { margin: 1pt 0; }
+"""
+
+
+def find_chrome():
+    for c in CHROME_CANDIDATES:
+        if Path(c).exists() or shutil.which(c):
+            return c
+    return None
+
+
+def inline(text):
+    t = html.escape(text)
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
+
+
+def to_html(md):
+    out, in_list, seen_name, contact_done = [], False, False, False
+
+    def close_list():
+        nonlocal in_list
+        if in_list:
+            out.append("</ul>")
+            in_list = False
+
+    for raw in md.splitlines():
+        line = raw.rstrip()
+        if not line.strip():
+            close_list()
+            if seen_name:
+                contact_done = True
+            continue
+        if line.startswith("# "):
+            close_list()
+            out.append(f"<h1>{inline(line[2:])}</h1>")
+            seen_name = True
+        elif line.startswith("## "):
+            close_list()
+            contact_done = True
+            out.append(f"<h2>{inline(line[3:])}</h2>")
+        elif line.startswith("### "):
+            close_list()
+            left, _, right = line[4:].partition("::")
+            out.append(f'<div class="row"><span>{inline(left.strip())}</span>'
+                       f'<span class="r">{inline(right.strip())}</span></div>')
+        elif line.startswith("- "):
+            if not in_list:
+                out.append("<ul>")
+                in_list = True
+            out.append(f"<li>{inline(line[2:])}</li>")
+        else:
+            close_list()
+            cls = ' class="contact"' if seen_name and not contact_done else ""
+            out.append(f"<p{cls}>{inline(line)}</p>")
+    close_list()
+    return f"<!doctype html><html><head><meta charset='utf-8'><style>{CSS}</style></head><body>{''.join(out)}</body></html>"
+
+
+def page_count(pdf):
+    return len(re.findall(rb"/Type\s*/Page[^s]", Path(pdf).read_bytes()))
+
+
+def main():
+    if len(sys.argv) < 2:
+        sys.exit(__doc__)
+    src = Path(sys.argv[1]).resolve()
+    dst = (Path(sys.argv[2]) if len(sys.argv) > 2 else src.with_suffix(".pdf")).resolve()
+    chrome = find_chrome()
+    if not chrome:
+        sys.exit("Could not find Chrome, Chromium or Edge. Install one, or open the .html this script writes "
+                 "and use Print > Save as PDF.")
+    doc = to_html(src.read_text(encoding="utf-8"))
+    html_path = dst.with_suffix(".html")
+    html_path.write_text(doc, encoding="utf-8")
+    with tempfile.TemporaryDirectory() as profile:
+        subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+                        f"--user-data-dir={profile}", f"--print-to-pdf={dst}", html_path.as_uri()],
+                       check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=90)
+    pages = page_count(dst)
+    print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''})")
+    if pages > 1:
+        print("WARNING: more than one page. Cut the oldest or least relevant bullets, then rebuild.")
+    html_path.unlink(missing_ok=True)
+
+
+if __name__ == "__main__":
+    main()
