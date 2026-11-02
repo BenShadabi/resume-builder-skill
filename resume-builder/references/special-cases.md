@@ -42,3 +42,22 @@
 
 ## Work authorization wording
 Never decide or state eligibility for them and do not give legal advice. Record the facts they give (status, permit dates) in `needs-input.md` as a private flag, and tell them to answer each portal's question truthfully with the exact wording the portal asks for. Do not put permit status on the resume unless they ask.
+
+## Academics moving to industry
+- **CV versus resume is a soft rule.** Explain once: industry hiring teams read a one-page resume with 2 to 3 selected publications; the full publication list belongs in a separate academic CV. Offer both: `First_Last_Resume_<Company>.pdf` (one page) and `First_Last_AcademicCV.pdf` (build with `--max-pages 3`). Do not pad the CV to reach a page count.
+- Ask for publication details: title, venue, year, author position. Do not invent a venue or year.
+- Translate research into industry words only where true: "clustered gene expression data" becomes "clustering analysis on a dataset of N samples" only if N is given. Ask for dataset size, tools and what decision the work informed.
+- Do not call the person by a title the posting wants ("Data Scientist") in the summary; say what they did and what they are seeking.
+- Ask about deployment: "Did you ever run code in production, or only in research?" Record the honest answer.
+
+## Contracts and unknown end dates
+Write "Jul 2025 to present (contract, ends Dec 2026)" if they know the end; otherwise "to present". Ask; do not guess.
+
+## Management targets
+Ask scope before writing any leadership claim: how many people (direct reports vs. team), budget (set it, track it, or only see a report), and what they decided themselves. A person who only sees a budget report did not manage the budget; write what they did.
+
+## Certifications and licences
+Give them a CERTIFICATIONS section (name, year, expiry). Check expiry dates against today and ask if anything has lapsed.
+
+## Non-English resumes
+Use the same fact sheet and the same numbers. Translate headings and use accents and local conventions the person prefers. The checker's banned-word list is English only, so read the Spanish, French or other text yourself for empty buzzwords. Keep file names ASCII (no accents or spaces) so portals accept them. Use CEFR-style language levels when the person knows them (B2 = upper-intermediate), never "fluent" for B2 or lower.

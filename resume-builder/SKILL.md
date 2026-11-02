@@ -43,7 +43,7 @@ Tell the person which phase they are in. Keep a task list.
    - **The one rule:** I only write what you tell me, and I will ask about every number. That keeps you safe in interviews.
    - **Your choices:** which documents you want (resume, cover letter, interview prep sheet), what you want to apply for, and how it looks. You can say no to any suggestion of mine.
 3. Ask which documents they want and which situation applies (student, graduate, career changer, returning, experienced).
-4. If they are in a hurry (interview this week, deadline tomorrow), offer the shorter path in `references/fast-path.md` instead of all 48 questions.
+4. If they are in a hurry (an interview or deadline within about a week, or they say so), offer the shorter path in `references/fast-path.md` instead of all 48 questions.
 
 ### Phase 1: Interview (Rounds 1 to 8)
 Follow `references/question-bank.md`. Ask 5 to 8 questions at a time and wait. After each round:
@@ -52,7 +52,7 @@ Follow `references/question-bank.md`. Ask 5 to 8 questions at a time and wait. A
 - If they have little or no work experience, use `references/special-cases.md`.
 
 ### Phase 2: Read it back
-Show a short summary of `profile.md`: who they are, target roles, every claim that has a number, every `CONFIRM`. Sanity-check dates against the story (for example, "first-year" with a start date two years ago, or overlapping jobs) and ask. If they said "about" for a number, keep the word "about" everywhere and offer a chance to check records before it goes out. Do not draft until they say it is accurate. This is where inflated or invented claims get caught.
+Show a short summary of `profile.md`: who they are, target roles, every claim that has a number, every `CONFIRM`. Sanity-check dates against the story (for example, "first-year" with a start date two years ago, or overlapping jobs) and ask. If they said "about" for a number, keep the word "about" everywhere and offer a chance to check records before it goes out. Do not draft until they say it is accurate. This is where inflated or invented claims get caught. Start a "Never write" list in `profile.md` for anything you decline.
 
 ### Phase 3: Pick the target
 Use `references/targeting.md`. Turn goals into 1 to 3 lanes (groups of similar jobs that can share one resume), rank them, collect real postings and check each is still open.
@@ -64,7 +64,7 @@ Draft `resume.md` with `references/format.md` and `references/writing-rules.md`.
 Follow `references/tailoring.md` for the resume. If they want a cover letter, follow `references/cover-letter.md`; if they want prep, follow `references/prep-sheet.md`. One folder per posting. Always write `needs-input.md`.
 
 ### Phase 6: Check and finish
-Run `scripts/check_resume.py` on each resume (`--type letter` for letters) and fix until it passes. Then hand over: file paths, keyword coverage and gaps, the "needs your input" list (eligibility, missing numbers, deadlines, portal rules), and a reminder that they submit applications themselves.
+Run `scripts/check_resume.py` on each resume (`--type letter` for letters, `--lang es` or similar for other languages) and fix until it passes. The checker catches numbers not in the fact sheet, banned words, claims on the "Never write" list and unconfirmed AI tools. It cannot judge truth, so you still read every line against `profile.md`. Then hand over: file paths, keyword coverage and gaps, the "needs your input" list (eligibility, missing numbers, deadlines, portal rules), a reminder that they submit applications themselves, and a plain note that Claude drafted the documents from their answers and that they must review every line before sending.
 
 ## Hard rules (these are not negotiable, reasons in references/pushback.md)
 - Facts only. Never invent, round up or guess a number, tool, title, date or skill. Ask.
@@ -88,6 +88,6 @@ One page, one column, plain text PDF, standard headings, no em dashes, no banned
 | Interview prep sheet | `references/prep-sheet.md` |
 | When the person asks for something against the process | `references/pushback.md` |
 | In a hurry, shorter path | `references/fast-path.md` |
-| Students, thin profiles, changers, gaps, newcomers | `references/special-cases.md` |
+| Students, thin profiles, changers, gaps, newcomers, academics, managers, non-English | `references/special-cases.md` |
 | Saying where AI was used | `references/ai-disclosure.md` |
 | Templates | `assets/` |

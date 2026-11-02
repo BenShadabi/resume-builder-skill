@@ -31,3 +31,6 @@ List, in plain words:
 
 ## Voice
 Use the tone from step 2 for the summary only. The resume body stays plain in every tone.
+
+## Mirroring the role name
+Use the posting's job title only in the "seeking" clause ("Seeking a data scientist role"). Never present it as the person's current title or credentials ("Data scientist with a PhD") unless that is their real title.

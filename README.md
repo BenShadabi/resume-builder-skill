@@ -105,7 +105,7 @@ Try the sample first: `examples/sample-resume.md` (a fictional person).
 
 ## Tested
 
-Before release it was run end to end on three fictional people: a first-year student with no experience, a career changer who asked for two pages, and a newcomer with an interview next week who asked to hide her AI use. Those runs found and fixed number-check bugs, short-posting keyword matching, naming conflicts and missing questions. Every rule held: no invented numbers or skills.
+Before release it was run end to end on six fictional people in two rounds: a first-year student, a career changer, a newcomer with an urgent interview, a senior nurse, a PhD moving to industry and an applicant in Mexico with a photo and Spanish resume. The runs found and fixed checker bugs (dates, short postings, accents, rejected claims), naming conflicts and missing guidance. Every hard rule held: no invented numbers or skills.
 
 ## Privacy
 

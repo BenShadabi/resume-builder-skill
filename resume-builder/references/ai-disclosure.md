@@ -22,3 +22,6 @@ Why: employers, schools and coordinators increasingly ask. Hiding AI risks trust
 
 ## Interview line
 Help the person prepare one honest sentence for each AI-assisted project: "AI drafted X. I decided Y, edited Z and tested it by doing W. I can walk through it."
+
+## Where it belongs
+State AI use where it affects the person's work (a project, a research task), not on a resume merely because Claude helped write the resume. At handover, tell the person plainly that Claude drafted the documents from their answers and that they are responsible for every line.

@@ -25,7 +25,7 @@ CHROME_CANDIDATES = [
 ]
 
 CSS = """
-@page { size: Letter; margin: 0.55in 0.6in; }
+@page { size: PAPER; margin: 0.55in 0.6in; }
 body { font-family: Calibri, Carlito, 'Helvetica Neue', Arial, sans-serif; font-size: 10.5pt;
        line-height: 1.28; color: #111; margin: 0; }
 h1 { font-size: 20pt; margin: 0 0 2pt 0; letter-spacing: 0.3px; }
@@ -52,7 +52,7 @@ def inline(text):
     return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
 
 
-def to_html(md):
+def to_html(md, paper="Letter", lang="en"):
     out, in_list, seen_name, contact_done = [], False, False, False
 
     def close_list():
@@ -91,7 +91,8 @@ def to_html(md):
             cls = ' class="contact"' if seen_name and not contact_done else ""
             out.append(f"<p{cls}>{inline(line)}</p>")
     close_list()
-    return f"<!doctype html><html><head><meta charset='utf-8'><style>{CSS}</style></head><body>{''.join(out)}</body></html>"
+    css = CSS.replace("PAPER", paper)
+    return f"<!doctype html><html lang='{lang}'><head><meta charset='utf-8'><style>{css}</style></head><body>{''.join(out)}</body></html>"
 
 
 def page_count(pdf):
@@ -103,6 +104,8 @@ def main():
     ap = argparse.ArgumentParser(description="Turn a resume or letter .md into a one-column PDF (needs Chrome, Chromium or Edge).")
     ap.add_argument("source", help="the .md file (see references/format.md)")
     ap.add_argument("output", nargs="?", help="PDF path (default: same name as the .md)")
+    ap.add_argument("--paper", choices=["Letter", "A4"], default="Letter", help="paper size (A4 for most countries outside North America)")
+    ap.add_argument("--lang", default="en", help="language code for the PDF, for example es or fr")
     ap.add_argument("--max-pages", type=int, default=1, help="warn above this many pages (default 1)")
     args = ap.parse_args()
     src = Path(args.source).resolve()
@@ -111,7 +114,7 @@ def main():
     if not chrome:
         sys.exit("Could not find Chrome, Chromium or Edge. Install one, or open the .html this script writes "
                  "and use Print > Save as PDF.")
-    doc = to_html(src.read_text(encoding="utf-8"))
+    doc = to_html(src.read_text(encoding="utf-8"), args.paper, args.lang)
     html_path = dst.with_suffix(".html")
     html_path.write_text(doc, encoding="utf-8")
     with tempfile.TemporaryDirectory() as profile:

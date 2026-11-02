@@ -44,3 +44,11 @@ Order of sections:
 - Career changers: Summary, Skills, Projects or relevant experience, Experience, Education.
 
 Fitting one page: first cut the oldest or least relevant bullets, then shorten the summary, then merge skill lines. Do not shrink the font below 10 pt or the margins below 0.5 in; recruiters read on small screens.
+
+## Optional sections, other languages, paper size
+- Extra sections you may add after the main ones: CERTIFICATIONS, PUBLICATIONS (selected, for industry resumes), VOLUNTEERING. **Omit any section the person has nothing for** (for example no PROJECTS).
+- Headings may be translated (RESUMEN, EXPERIENCIA, EDUCACION). Build with `--lang es` so the PDF is tagged correctly.
+- Paper: `--paper A4` for most countries outside North America (default is Letter).
+- Personal data lines (date of birth, nationality) only if the person insists, which is their call. Put them on the contact lines, never invent them, and note in `needs-input.md` if they have not supplied them.
+- The builder cannot place a photo. Say so if asked.
+- Section order for academics moving to industry: Summary, Education, Experience (research and teaching, in plain industry language), Skills, Selected publications (2 to 3), Projects.

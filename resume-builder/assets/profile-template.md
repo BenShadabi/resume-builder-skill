@@ -58,5 +58,12 @@ Only facts the person has told you. Mark anything unsure `CONFIRM`. This file is
 - What I do myself:
 - Can I redo and explain it in an interview? yes/no
 
+## Never write (rejected, private or unconfirmed)
+One item per line. The checker fails if any of these appear in a document. Add things the person asked for that we declined, GPA kept private, skills they do not have.
+- (example: managed a $2M budget)
+
+## Certifications (name | year | expires?)
+-
+
 ## Open items (CONFIRM)
 -
