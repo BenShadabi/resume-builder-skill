@@ -114,7 +114,9 @@ def main():
 
     if a.profile:
         prof = Path(a.profile).read_text(encoding="utf-8")
-        known = numbers(prof)
+        # numbers on the "Never write" list are rejected claims, so they must not count as known facts
+        prof_facts = re.sub(r"## Never write[^\n]*\n.*?(?=\n## |\Z)", "", prof, flags=re.S)
+        known = numbers(prof_facts)
         body = md
         if a.type == "resume":
             body = md.split("\n## ", 1)[1] if "\n## " in md else md  # skip the contact header

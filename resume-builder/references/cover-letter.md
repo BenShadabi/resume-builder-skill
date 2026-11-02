@@ -16,6 +16,9 @@ Recruiters skim a letter in under a minute. It should prove three things fast: y
 Use the posting's own wording, and any company text or news the person pasted or sent. Do not search the web unless they ask. If they ask, add one verified, dated item, mark it `researched: <URL, date>`, and list it in `needs-input.md` to verify before sending. With nothing to use, write the opening from the posting and say so (see the last section).
 
 ## Rules
+- Date: write the real date of sending (ask if unsure). Use "Month D, YYYY".
+- If the school city or other small detail is missing from `profile.md`, ask or leave it out; do not guess.
+- Do not raise a skill level in the letter. A beginner course stays "a beginner course", not "the work I do now".
 - Under 250 words in the body. One page. No bullet lists.
 - Plain sentences. Do not start every sentence with "I". No buzzwords, no em dashes.
 - Be honest about gaps; do not apologise for them.

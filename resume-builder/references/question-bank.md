@@ -9,7 +9,7 @@ Rules that keep it short:
 - **Follow up only on what they mention.** Do not ask about a job, project or skill they did not bring up.
 - **One follow-up per vague answer, not five.** The one that matters most is a real number for each result.
 
-## Core 12 (Standard path)
+## Core 11 (Standard path)
 
 ### Round 1: You and your goal
 1. (Q) Name, city and country, and the contact details to show (phone, professional email, LinkedIn or portfolio).
