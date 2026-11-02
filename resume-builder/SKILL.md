@@ -18,6 +18,13 @@ The person owns their documents. Offer choices, give a recommendation with the r
 ## Sources: only what the person gave you
 Every fact comes from the person's answers, files they send (old resume, LinkedIn text, transcripts, project write-ups, postings) or text they paste. No web searching, no outside facts, no "typical" achievements, unless they explicitly ask, and then label it as researched and tell them to verify. Details: `references/sources-and-files.md`.
 
+## Working on Claude.ai (or any chat without a local folder)
+- **Attached files** are usually under `/mnt/user-data/uploads/`. Read them there; if you cannot find them, ask the person to paste the text.
+- **Save finished files** (PDFs, `profile.md`) in `/mnt/user-data/outputs/` when that folder exists, otherwise the working folder, and hand them to the person as downloads.
+- **Chats do not keep files.** At the end, give the person `profile.md` and tell them to attach it next time to skip the interview.
+- **No Chrome needed.** `scripts/build_resume.py` falls back to a built-in PDF writer (plain Helvetica, one column) when Chrome is missing. If code cannot run at all, deliver `resume.md` as plain text and tell them to paste it into Word or Google Docs.
+- **No web.** Do not assume internet access; this skill never needs it (see Sources above).
+
 ## Working files
 
 Ask where to save (default `./my-applications/`):
@@ -40,7 +47,7 @@ Scripts live in `scripts/` next to this file. Run with `python3` (standard libra
 Tell the person which phase they are in. Keep a task list.
 
 ### Phase 0: Set up (2 minutes)
-1. Run `python3 scripts/check_setup.py`. It checks Python and a browser for PDFs and prints what is missing in plain words. Fix or explain anything missing.
+1. If you can run code, run `python3 scripts/check_setup.py`. It checks Python and whether Chrome is available (not required) and prints what is missing in plain words. If you cannot run code, skip it and plan to deliver the resume as text.
 2. Give the person this short briefing (adapt the words, keep it brief):
    - **What you need:** 5 to 15 minutes (more only for the Deep path), and any files you can send (old resume, LinkedIn text, transcripts, project write-ups, performance reviews with numbers), 1 to 3 job postings if you already know them, and honest numbers from your work (percent, dollars, hours, counts). No numbers is fine.
    - **How it works:** 8 to 11 questions in short rounds. Answer in your own words, dictate if you like. Say "skip", "I don't know" or "change that" at any time.

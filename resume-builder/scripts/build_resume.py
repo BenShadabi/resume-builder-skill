@@ -3,16 +3,19 @@
 
 Usage: build_resume.py resume.md [out.pdf]
 
-Needs Google Chrome, Chromium or Microsoft Edge installed. No Python packages needed.
+Uses Chrome, Chromium or Edge if installed, otherwise a built-in standard-library PDF writer. No Python packages needed.
 Prints the page count. See references/format.md for the markdown format.
 """
 import html
+import os
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 CHROME_CANDIDATES = [
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -106,14 +109,23 @@ def main():
     ap.add_argument("output", nargs="?", help="PDF path (default: same name as the .md)")
     ap.add_argument("--paper", choices=["Letter", "A4"], default="Letter", help="paper size (A4 for most countries outside North America)")
     ap.add_argument("--lang", default="en", help="language code for the PDF, for example es or fr")
+    ap.add_argument("--engine", choices=["auto", "chrome", "builtin"], default="auto", help="auto uses Chrome if installed, otherwise the built-in writer")
     ap.add_argument("--max-pages", type=int, default=1, help="warn above this many pages (default 1)")
     args = ap.parse_args()
     src = Path(args.source).resolve()
     dst = (Path(args.output) if args.output else src.with_suffix(".pdf")).resolve()
-    chrome = find_chrome()
+    chrome = None if args.engine == "builtin" else find_chrome()
     if not chrome:
-        sys.exit("Could not find Chrome, Chromium or Edge. Install one, or open the .html this script writes "
-                 "and use Print > Save as PDF.")
+        if args.engine == "chrome":
+            sys.exit("Chrome, Chromium or Edge was not found. Install one, or use --engine builtin.")
+        from simple_pdf import markdown_to_pdf
+        data, pages = markdown_to_pdf(src.read_text(encoding="utf-8"), args.paper)
+        dst.write_bytes(data)
+        print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''}) using the built-in PDF writer "
+              "(plain Helvetica; install Chrome for the nicer Calibri-style layout)")
+        if pages > args.max_pages:
+            print(f"WARNING: more than {args.max_pages} page(s). Cut the oldest or least relevant bullets, then rebuild.")
+        return
     doc = to_html(src.read_text(encoding="utf-8"), args.paper, args.lang)
     html_path = dst.with_suffix(".html")
     html_path.write_text(doc, encoding="utf-8")

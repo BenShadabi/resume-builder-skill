@@ -65,9 +65,13 @@ mkdir -p ~/.claude/skills
 cp -r resume-builder ~/.claude/skills/
 ```
 
-**Claude.ai:** zip the `resume-builder` folder (the folder itself at the top of the zip) and upload it under Settings, Capabilities, Skills.
+**Claude.ai (the website or app):**
+1. Download [`dist/resume-builder.zip`](dist/resume-builder.zip) from this repo.
+2. In Claude, open Settings, then Capabilities (or Customize), then Skills, and upload the zip. Skills and code execution must be enabled on your plan.
+3. Start a new chat and say: `Use the resume-builder skill. Start with the setup check.`
+4. **Attach your files** (old resume, transcript, project notes) in the chat. Your PDFs come back as downloads. Keep the `profile.md` it gives you and attach it next time to skip the questions.
 
-Needs: Python 3 and Google Chrome, Chromium or Edge (to print the PDF). Nothing else to install.
+Needs Python 3. Chrome, Chromium or Edge is optional: with it you get a nicer layout, without it (for example on Claude.ai) a built-in writer makes a plain one-column PDF. Nothing else to install.
 
 ## What is in the repo
 
@@ -90,10 +94,12 @@ resume-builder/
   assets/                   fact sheet, resume and cover letter templates
   scripts/
     check_setup.py          checks your computer can run it
-    build_resume.py         resume or letter .md to PDF (headless Chrome, no packages)
+    build_resume.py         resume or letter .md to PDF (Chrome if present, else built-in)
+    simple_pdf.py           the built-in PDF writer (standard library only)
     check_resume.py         rule checks, rejected-claim check, keyword coverage
 examples/                   a fictional sample fact sheet, resume and cover letter
 docs/index.html             visual walkthrough
+dist/resume-builder.zip     ready-to-upload file for Claude.ai
 ```
 
 ## Run the scripts yourself

@@ -2,7 +2,7 @@
 """Check that this computer can run the resume builder. Prints plain-language results.
 
 Usage: check_setup.py
-Needs: Python 3.8+ and one of Google Chrome, Chromium or Microsoft Edge (used to print PDFs).
+Needs: Python 3.8+. Chrome, Chromium or Edge is optional (nicer PDFs); otherwise a built-in writer is used.
 """
 import platform
 import shutil
@@ -25,9 +25,8 @@ def main():
     if chrome:
         print(f"OK    PDF printer found: {chrome}")
     else:
-        ok = False
-        print("MISSING Google Chrome, Chromium or Edge. Install one (chrome.google.com), "
-              "or ask for the .html version and use Print, then Save as PDF.")
+        print("OK    No Chrome found, so PDFs use the built-in writer (plain Helvetica, one column). "
+              "That is fine; install Chrome only if you want the nicer layout.")
     print(f"INFO  System: {platform.system()}")
     print("INFO  Nothing else to install. Your files stay on this computer.")
     print("READY" if ok else "NOT READY: fix the items marked MISSING")
