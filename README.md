@@ -41,6 +41,7 @@ Claude keeps copies in a `sources/` folder on your computer, tags each fact with
 - A one-page, plain-text, ATS-friendly resume PDF built only from what you told Claude.
 - Optionally: a tailored copy per job posting, a cover letter (5 short parts, under 250 words) and an interview prep sheet.
 - A short "needs your input" list per job: eligibility questions, missing numbers, gaps, deadlines.
+- A builder that scales a short resume's layout to look balanced (no filler words; `--no-fill` turns it off).
 - A checker that confirms one page, no buzzwords or em dashes, every number is in your fact sheet, and nothing you rejected has crept back in.
 
 ## How it works

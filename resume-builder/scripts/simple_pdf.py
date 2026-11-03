@@ -85,8 +85,9 @@ def wrap(segments, size, max_w):
 
 
 class Doc:
-    def __init__(self, paper="Letter"):
+    def __init__(self, paper="Letter", s=1.0, g=1.0):
         self.w, self.h = PAPERS.get(paper, PAPERS["Letter"])
+        self.s, self.g = s, g  # font scale and spacing scale (used to balance short resumes)
         self.pages = [[]]
         self.y = self.h - MARGIN_TOP
 
@@ -112,6 +113,7 @@ class Doc:
             cur += width(w, size, bold)
 
     def para(self, segments, size=10.5, indent=0, bullet=False, lead=1.28, gap=1.5):
+        size, gap = size * self.s, gap * self.g
         max_w = self.w - 2 * MARGIN_X - indent
         lines = wrap(segments, size, max_w)
         for i, ln in enumerate(lines):
@@ -123,15 +125,16 @@ class Doc:
         self.y -= gap
 
     def heading(self, s):
-        self._need(26)
-        self.y -= 16
-        self.text(MARGIN_X, self.y, s.upper(), 11, True)
+        self._need(26 * self.s)
+        self.y -= 16 * self.g
+        self.text(MARGIN_X, self.y, s.upper(), 11 * self.s, True)
         self.line(MARGIN_X, self.y - 3, self.w - MARGIN_X)
-        self.y -= 5
+        self.y -= 5 * self.g
 
     def row(self, left, right, size=10.5):
+        size *= self.s
         self._need(size * 1.5 + 4)
-        self.y -= size * 1.28 + 3
+        self.y -= size * 1.28 + 3 * self.g
         self.text(MARGIN_X, self.y, left, size, True)
         if right:
             self.text(self.w - MARGIN_X - width(right, size), self.y, right, size)
@@ -168,21 +171,21 @@ class Doc:
         return bytes(out)
 
 
-def markdown_to_pdf(md, paper="Letter"):
-    d = Doc(paper)
+def _build(md, paper, s, g):
+    d = Doc(paper, s, g)
     seen_name, contact_done = False, False
     for raw in md.splitlines():
         line = raw.rstrip()
         if not line.strip():
             if seen_name:
                 contact_done = True
-            d.y -= 3 if contact_done else 0
+            d.y -= 3 * g if contact_done else 0
             continue
         if line.startswith("# "):
-            d._need(30)
-            d.y -= 20
-            d.text(MARGIN_X, d.y, line[2:], 20, True)
-            d.y -= 3
+            d._need(30 * s)
+            d.y -= 20 * s
+            d.text(MARGIN_X, d.y, line[2:], 20 * s, True)
+            d.y -= 3 * g
             seen_name = True
         elif line.startswith("## "):
             contact_done = True
@@ -195,4 +198,22 @@ def markdown_to_pdf(md, paper="Letter"):
         else:
             size = 10 if seen_name and not contact_done else 10.5
             d.para(strip_inline(line), size=size, gap=1)
-    return d.render(), len(d.pages)
+    return d
+
+
+# (font scale, spacing scale), largest first. Body text tops out at about 12 pt (10.5 x 1.14).
+FILL_STEPS = [(1.14, 2.4), (1.14, 2.0), (1.14, 1.6), (1.14, 1.3), (1.14, 1.0),
+              (1.09, 1.0), (1.05, 1.0), (1.0, 1.0)]
+
+
+def markdown_to_pdf(md, paper="Letter", fill=True):
+    """Short resumes are scaled up (never padded with words) so they look balanced; full ones stay as they are."""
+    base = _build(md, paper, 1.0, 1.0)
+    best = base
+    if fill:
+        for s, g in FILL_STEPS:
+            d = _build(md, paper, s, g)
+            if len(d.pages) <= len(base.pages):
+                best = d
+                break
+    return best.render(), len(best.pages)

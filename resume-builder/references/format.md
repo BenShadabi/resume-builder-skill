@@ -36,7 +36,7 @@ Rules:
 - `### Left :: Right` makes a bold left part and a right-aligned part (dates or a link).
 - Plain lines are paragraphs (employer line, coursework line). `**Label:** text` bolds the label.
 - `- ` lines are bullets.
-- Keep it to one page. The builder reports the page count.
+- Keep it to one page. The builder reports the page count. Short resumes scale the layout to look balanced; we never add filler words.
 
 Order of sections:
 - Students and recent graduates: Summary, Education, Skills, Experience, Projects.

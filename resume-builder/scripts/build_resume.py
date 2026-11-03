@@ -27,20 +27,26 @@ CHROME_CANDIDATES = [
     r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
 ]
 
+# --s scales font sizes and --g scales spacing, so a short resume can fill the page without extra words.
 CSS = """
+:root { --s: 1; --g: 1; }
 @page { size: PAPER; margin: 0.55in 0.6in; }
-body { font-family: Calibri, Carlito, 'Helvetica Neue', Arial, sans-serif; font-size: 10.5pt;
+body { font-family: Calibri, Carlito, 'Helvetica Neue', Arial, sans-serif; font-size: calc(10.5pt * var(--s));
        line-height: 1.28; color: #111; margin: 0; }
-h1 { font-size: 20pt; margin: 0 0 2pt 0; letter-spacing: 0.3px; }
-.contact { font-size: 10pt; margin: 0; }
-h2 { font-size: 11pt; margin: 10pt 0 3pt 0; padding-bottom: 1pt; border-bottom: 1px solid #333;
-     letter-spacing: 0.6px; }
-.row { display: flex; justify-content: space-between; margin-top: 4pt; font-weight: bold; }
+h1 { font-size: calc(20pt * var(--s)); margin: 0 0 calc(2pt * var(--g)) 0; letter-spacing: 0.3px; }
+.contact { font-size: calc(10pt * var(--s)); margin: 0; }
+h2 { font-size: calc(11pt * var(--s)); margin: calc(10pt * var(--g)) 0 calc(3pt * var(--g)) 0; padding-bottom: 1pt;
+     border-bottom: 1px solid #333; letter-spacing: 0.6px; }
+.row { display: flex; justify-content: space-between; margin-top: calc(4pt * var(--g)); font-weight: bold; }
 .row span.r { font-weight: normal; }
-p { margin: 1pt 0; }
-ul { margin: 2pt 0 2pt 16pt; padding: 0; }
-li { margin: 1pt 0; }
+p { margin: calc(1pt * var(--g)) 0; }
+ul { margin: calc(2pt * var(--g)) 0 calc(2pt * var(--g)) 16pt; padding: 0; }
+li { margin: calc(1pt * var(--g)) 0; }
 """
+
+# (font scale, spacing scale), largest first. Body text tops out at about 12 pt (10.5 x 1.14).
+FILL_STEPS = [(1.14, 2.4), (1.14, 2.0), (1.14, 1.6), (1.14, 1.3), (1.14, 1.0),
+              (1.09, 1.0), (1.05, 1.0), (1.0, 1.0)]
 
 
 def find_chrome():
@@ -75,7 +81,7 @@ def inline(text):
     return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
 
 
-def to_html(md, paper="Letter", lang="en"):
+def to_html(md, paper="Letter", lang="en", s=1.0, g=1.0):
     out, in_list, seen_name, contact_done = [], False, False, False
 
     def close_list():
@@ -114,7 +120,7 @@ def to_html(md, paper="Letter", lang="en"):
             cls = ' class="contact"' if seen_name and not contact_done else ""
             out.append(f"<p{cls}>{inline(line)}</p>")
     close_list()
-    css = CSS.replace("PAPER", paper)
+    css = CSS.replace("PAPER", paper).replace("--s: 1; --g: 1;", f"--s: {s}; --g: {g};")
     return f"<!doctype html><html lang='{lang}'><head><meta charset='utf-8'><style>{css}</style></head><body>{''.join(out)}</body></html>"
 
 
@@ -122,37 +128,10 @@ def page_count(pdf):
     return len(re.findall(rb"/Type\s*/Page[^s]", Path(pdf).read_bytes()))
 
 
-def main():
-    import argparse
-    ap = argparse.ArgumentParser(description="Turn a resume or letter .md into a one-column PDF (needs Chrome, Chromium or Edge).")
-    ap.add_argument("source", help="the .md file (see references/format.md)")
-    ap.add_argument("output", nargs="?", help="PDF path (default: same name as the .md)")
-    ap.add_argument("--paper", choices=["Letter", "A4"], default="Letter", help="paper size (A4 for most countries outside North America)")
-    ap.add_argument("--lang", default="en", help="language code for the PDF, for example es or fr")
-    ap.add_argument("--engine", choices=["auto", "chrome", "builtin"], default="auto", help="auto uses Chrome if installed, otherwise the built-in writer")
-    ap.add_argument("--max-pages", type=int, default=1, help="warn above this many pages (default 1)")
-    args = ap.parse_args()
-    src = Path(args.source).resolve()
-    dst = (Path(args.output) if args.output else src.with_suffix(".pdf")).resolve()
-    chrome = None if args.engine == "builtin" else find_chrome()
-    if chrome and args.engine == "auto" and is_root():
-        chrome = None  # root usually means a sandbox or container, where Chrome is slow or hangs: use the built-in writer
-    if chrome and args.engine == "auto" and not chrome_works(chrome):
-        chrome = None  # found but not working here (common in sandboxes): use the built-in writer
-    if not chrome:
-        if args.engine == "chrome":
-            sys.exit("Chrome, Chromium or Edge was not found. Install one, or use --engine builtin.")
-        from simple_pdf import markdown_to_pdf
-        data, pages = markdown_to_pdf(src.read_text(encoding="utf-8"), args.paper)
-        dst.write_bytes(data)
-        print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''}) using the built-in PDF writer "
-              "(plain Helvetica; install Chrome for the nicer Calibri-style layout)")
-        if pages > args.max_pages:
-            print(f"WARNING: more than {args.max_pages} page(s). Cut the oldest or least relevant bullets, then rebuild.")
-        return
-    doc = to_html(src.read_text(encoding="utf-8"), args.paper, args.lang)
+def print_pdf(chrome, md, paper, lang, dst, s=1.0, g=1.0):
+    """Print md to dst with Chrome at the given scales. Returns True if a PDF was written."""
     html_path = dst.with_suffix(".html")
-    html_path.write_text(doc, encoding="utf-8")
+    html_path.write_text(to_html(md, paper, lang, s, g), encoding="utf-8")
     flags = ["--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--disable-dev-shm-usage"]
     if hasattr(os, "geteuid") and os.geteuid() == 0:  # root in a container: Chrome refuses to start without this
         flags.append("--no-sandbox")
@@ -167,11 +146,62 @@ def main():
         except (subprocess.SubprocessError, OSError):
             ok = False
     html_path.unlink(missing_ok=True)
+    return ok
+
+
+def fit_scales(chrome, md, paper, lang, dst, base_pages):
+    """Binary search FILL_STEPS for the largest scales that keep the page count at base_pages."""
+    lo, hi, best = 0, len(FILL_STEPS) - 1, (1.0, 1.0)
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        s, g = FILL_STEPS[mid]
+        if print_pdf(chrome, md, paper, lang, dst, s, g) and page_count(dst) <= base_pages:
+            best, hi = (s, g), mid - 1
+        else:
+            lo = mid + 1
+    return best
+
+
+def main():
+    import argparse
+    ap = argparse.ArgumentParser(description="Turn a resume or letter .md into a one-column PDF (needs Chrome, Chromium or Edge).")
+    ap.add_argument("source", help="the .md file (see references/format.md)")
+    ap.add_argument("output", nargs="?", help="PDF path (default: same name as the .md)")
+    ap.add_argument("--paper", choices=["Letter", "A4"], default="Letter", help="paper size (A4 for most countries outside North America)")
+    ap.add_argument("--lang", default="en", help="language code for the PDF, for example es or fr")
+    ap.add_argument("--engine", choices=["auto", "chrome", "builtin"], default="auto", help="auto uses Chrome if installed, otherwise the built-in writer")
+    ap.add_argument("--no-fill", action="store_true", help="keep the compact 10.5 pt layout (by default a short resume is scaled up to look balanced; no words are added)")
+    ap.add_argument("--max-pages", type=int, default=1, help="warn above this many pages (default 1)")
+    args = ap.parse_args()
+    src = Path(args.source).resolve()
+    dst = (Path(args.output) if args.output else src.with_suffix(".pdf")).resolve()
+    chrome = None if args.engine == "builtin" else find_chrome()
+    if chrome and args.engine == "auto" and is_root():
+        chrome = None  # root usually means a sandbox or container, where Chrome is slow or hangs: use the built-in writer
+    if chrome and args.engine == "auto" and not chrome_works(chrome):
+        chrome = None  # found but not working here (common in sandboxes): use the built-in writer
+    if not chrome:
+        if args.engine == "chrome":
+            sys.exit("Chrome, Chromium or Edge was not found. Install one, or use --engine builtin.")
+        from simple_pdf import markdown_to_pdf
+        data, pages = markdown_to_pdf(src.read_text(encoding="utf-8"), args.paper, not args.no_fill)
+        dst.write_bytes(data)
+        print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''}) using the built-in PDF writer "
+              "(plain Helvetica; install Chrome for the nicer Calibri-style layout)")
+        if pages > args.max_pages:
+            print(f"WARNING: more than {args.max_pages} page(s). Cut the oldest or least relevant bullets, then rebuild.")
+        return
+    md = src.read_text(encoding="utf-8")
+    ok = print_pdf(chrome, md, args.paper, args.lang, dst)
+    if ok and not args.no_fill:
+        base_pages = page_count(dst)
+        s, g = fit_scales(chrome, md, args.paper, args.lang, dst, base_pages)
+        ok = print_pdf(chrome, md, args.paper, args.lang, dst, s, g)
     if not ok:
         if args.engine == "chrome":
             sys.exit("Chrome could not print the PDF. Use --engine builtin.")
         from simple_pdf import markdown_to_pdf
-        data, pages = markdown_to_pdf(src.read_text(encoding="utf-8"), args.paper)
+        data, pages = markdown_to_pdf(md, args.paper, not args.no_fill)
         dst.write_bytes(data)
         print(f"Chrome did not work here, so I used the built-in PDF writer instead.")
         print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''})")
@@ -182,7 +212,6 @@ def main():
     print(f"Wrote {dst} ({pages} page{'s' if pages != 1 else ''})")
     if pages > args.max_pages:
         print(f"WARNING: more than {args.max_pages} page(s). Cut the oldest or least relevant bullets, then rebuild.")
-    html_path.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

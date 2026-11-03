@@ -86,7 +86,7 @@ Run `scripts/check_resume.py` on each resume (`--type letter` for letters, `--la
 - Their personal data stays on their machine. Do not post it or paste it into outside tools.
 
 ## Defaults the person may change
-One page, one column, plain text PDF, standard headings, no em dashes, no banned buzzwords, GPA and photo off, file name `First_Last_Resume_<Company>.pdf` under 50 characters. If a person's real content fills well under a page, say so and recommend a short resume over padding; never add filler. See `references/pushback.md` for how to handle a request to change these.
+One page, one column, plain text PDF, standard headings, no em dashes, no banned buzzwords, GPA and photo off, file name `First_Last_Resume_<Company>.pdf` under 50 characters. If a person's real content fills well under a page, say so and recommend a short resume over padding; never add filler. Short resumes scale the layout to look balanced; we never add filler words. (`--no-fill` keeps the compact layout.) See `references/pushback.md` for how to handle a request to change these.
 
 ## When to read which reference
 | Need | File |
