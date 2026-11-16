@@ -55,3 +55,13 @@ Words like "stakeholder communication" or "teamwork" go on only if the person ga
 - Master PDF: `First_Last_Resume.pdf`
 - Per job: `First_Last_Resume_<Company>.pdf`, `First_Last_CoverLetter_<Company>.pdf` (the `.md` sources and `prep.md` may keep short names)
 - At most 50 characters, no spaces.
+
+## Lessons from a real co-op search
+These come from one student's live job search, where 60+ tailored packages were built and checked. They are soft rules: explain once, then follow the person's choice.
+- **One-line header.** City, phone, email, LinkedIn on a single line. It saves two lines for content and keeps the resume and the letter header identical.
+- **One project with a number from the person's own data.** A project that tracks something real (applications, budget, a model) and states a measured result beats three vague ones. Write what was measured and over what period; mark scenarios as "modelled". If the number is not in `profile.md`, ask for it.
+- **Tools the person lacks stay out.** When a posting names a tool the person has not used (Power Query, VBA, a CRM, an ERP), list it in `needs-input.md` and the prep sheet as a gap with a plain way to say so in an interview. Never add it to Skills "to pass the filter".
+- **Use the email the person chooses on applications** (often a school address) and keep any other address private. Ask once, then use it everywhere, resume and letter alike.
+- **Company numbers need a source.** A funding round, revenue, a percentage: use one in a letter only if the person supplied it or you cite a dated source and flag it in `needs-input.md`. If unsure, write the letter without the figure; a sentence about what the company does is safer than a number that may be wrong.
+- **Check the posting is still open** before building a package, and look for the start date and term. If neither is stated, build anyway but flag "check the term" in `needs-input.md` so the person asks the employer before applying.
+- **Never send for them.** The builder prepares files. The person reviews, submits and sends every message themselves.

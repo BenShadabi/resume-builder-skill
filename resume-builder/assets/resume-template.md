@@ -1,6 +1,5 @@
 # Your Name
 City, Country  |  000-000-0000  |  you@example.com  |  linkedin.com/in/yourname
-github.com/yourname
 
 ## SUMMARY
 One to three lines: who you are, one proof point, the role you want.

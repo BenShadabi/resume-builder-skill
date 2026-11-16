@@ -5,7 +5,6 @@ The builder reads a tiny markdown format so people can edit the resume in any te
 ```
 # Full Name
 City, Country  |  phone  |  email  |  linkedin.com/in/name
-github.com/name
 
 ## SUMMARY
 Two or three lines.
@@ -31,7 +30,8 @@ Employer, City, Country
 ```
 
 Rules:
-- `# ` is the name (once). The next non-empty lines are the contact lines.
+- `# ` is the name (once). The next non-empty line is the contact line. Keep the header to ONE line: city, phone, email, LinkedIn.
+- Put a GitHub or portfolio link on the project heading (`### Project name :: github.com/name/repo`), not in the header, and only if the repo is tidy and public-safe. A header link to an empty or messy profile costs more than it earns.
 - `## ` starts a section. Use the standard headings.
 - `### Left :: Right` makes a bold left part and a right-aligned part (dates or a link).
 - Plain lines are paragraphs (employer line, coursework line). `**Label:** text` bolds the label.
